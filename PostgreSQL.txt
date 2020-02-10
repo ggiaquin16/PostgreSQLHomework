@@ -1,0 +1,51 @@
+@startuml PostgreSQL
+hide circle
+skinparam linetype ortho
+
+entity Departments {
+    * DeptNumber : VARCHAR
+    --
+    DeptName : VARCHAR
+}
+
+entity Employees {
+    * EmployeeNumber : INT
+    --
+    BirthDate : DATE
+    FirstName : VARCHAR
+    LastName : VARCHAR
+    Gender : VARCHAR
+    HireDate : DATE
+}
+
+entity EmployeeDepartment {
+    EmployeeNumber : INT <<FK>>
+    DeptNumber : VARCHAR <<FK>>
+}
+
+entity ManagerDepartment {
+    EmployeeNumber : INT <<FK>>
+    DeptNumber : VARCHAR <<FK>>
+}
+
+entity EmployeeSalary {
+    EmployeeNumber : INT <<FK>>
+    Salary : INT
+    FromDate : DATE
+    ToDate : DATE
+}
+
+entity EmployeeTitle {
+    EmployeeNumber : INT <<FK>>
+    Title : VARCHAR
+    FromDate : DATE
+    ToDate : DATE
+}
+
+Departments ||--|{ EmployeeDepartment
+Departments ||--|{ ManagerDepartment
+Employees ||--|| EmployeeDepartment
+Employees ||--|{ ManagerDepartment
+Employees ||--|| EmployeeSalary
+Employees ||--|{ EmployeeTitle
+@enduml
